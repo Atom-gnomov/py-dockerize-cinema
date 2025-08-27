@@ -6,8 +6,17 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR app/
 
 COPY requirements.txt requirements.txt
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    postgresql-dev \
+    zlib-dev \
+    jpeg-dev \
+    freetype-dev \
+    build-base
 RUN pip install -r requirements.txt
-COPY . .requirements
+COPY . .
 RUN mkdir -p /files/media
 RUN mkdir -p /files/static
 RUN adduser \
